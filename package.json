@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "",
   "description": "Express CRUD operation for mongoDB scheme",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "jasmine-node --verbose test/"
   },
