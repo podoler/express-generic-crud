@@ -7,7 +7,7 @@
 - [Usage](#usage)
   - [Creating a Simple CRUD Module](#creating-a-simple-crud-module)
   - [Creating a Simple Static Module](#creating-a-simple-static-module)
-  - [Using Hooks](#using Hooks)
+  - [Using Hooks](#using-hooks)
 - [Options Object](#options-object)
 
 ##General
