@@ -203,6 +203,7 @@ This feature should be available soon.
 
 ##Additional Information
 ###Options Object
+This is an object as a thirs parameter to the crud method, it can consist of the followings:
   - resourceType - {String} - Set the resource of which to create the CRUD module
     - mongodb - use mongodb as the resource to use the CRUD for
     - static - export static data object API
