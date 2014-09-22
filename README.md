@@ -30,8 +30,9 @@ For you to be able to use this module you need the follwing things:
 
 ##Installation
 To install the module use:
-mpm install express-generic-crud
-
+```
+npm install express-generic-crud
+```
 
 ##Configuration
 ###Importing The Module
