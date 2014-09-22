@@ -4,7 +4,6 @@
 ## Table Of Content
 - [General](#general)
   - [Requirements](#requirements)
-  - [Vision](#vision)
 - [Installation](#installation)
 - [Configuration](#configuration)
   - [Importing The Module](#importing-the-module)
@@ -13,8 +12,12 @@
   - [Creating a Simple CRUD Module](#creating-a-simple-crud-module)
   - [Creating a Simple Static Module](#creating-a-simple-static-module)
   - [Using Hooks](#using-hooks)
+    - [Pre Hooks](#pre-hooks)
+    - [Post Hooks](#post-hooks)
   - [Model Dependecies](#model-dependecies)
-- [Options Object](#options-object)
+- [Additional Information](#additional-information)
+  - [Options Object](#options-object)
+  - [Output Object](#output-object)
 
 ##General
 A simple to use, server side, generic module for adding CRUD module to your Express application.
@@ -24,8 +27,6 @@ This module will allow you to add a simple CRUD module for a specific model / st
 For you to be able to use this module you need the follwing things:
 - Express Application
 - Static File to use / Mongoose Scheme
-
-###Vision
 
 ##Installation
 To install the module use:
@@ -62,8 +63,9 @@ To create a simple CRUD module you would need to have a basic mongoose scheme wh
   This is a helper method to create generic CRUD module
   @param: path - {String} - path which will be routed to the application
   @param: scheme - {Mongoose Model} - The Model which will be used to create the CRUD operations on
+  @returns: {Crud} - Crud object to manipulate
 **/
-app.crud(path, scheme);
+var crud = app.crud(path, scheme);
 ```
 
 After using this method, The followings routes would be provided for you
@@ -88,9 +90,116 @@ app.crud(path, data, {resourceType : 'static'});
 ```
 
 ###Using Hooks
+Hooks are a way for the developer to intervene with the internal of the CRUD generic module,
+There are two available hooks: pre-hooks and post-hooks
 
+####Pre Hooks
+Pre-Hooks are available for each operation that been defined and one can register to listen to such a hook with the following API on the Crud object (See [Creating A Simple CRUD Module](#creating-a-simple-crud-module)):
+```
+/**
+  Registration of Pre-Hook method
+  @param operation - {String} one of the followings:
+                      -. list
+                      -. create
+                      -. read
+                      -. update
+                      -. delete
+  @param callback - {Function} in the form of callback(context, next)
+                      context - {Context} object
+                      next - {Function} async next method - must be called to complete the operation
+*/
+crud.pre(operation, callback);
+```
 
+The Context object is overloaded with relevant details for each operation,
+Here is the list of available methods for Context objects per opeartion:
+- Create / Update Operation:
+  ```
+  /**
+    Create / Update Instance Details Getter
+    @returns {Object} - The details which with them the data would be created / updated
+  */
+  context.getDetails();
+  
+  /**
+    Create / Updtate Instance Details Setter
+    @param newDetails - {Object} set the details which with them the new instance would be created / updated
+  */
+  context.setDetails(newDetails);
+  
+  ```
+
+For an example, to use a pre hook for create operation, use the following example:
+  ```
+  // Create a pre create hook
+  crud.pre('create', function(context, next){
+      console.log('Pre Create Hook');
+
+      next();
+  });
+  ```
+
+####Post Hooks
+Post-Hooks are available for each operation that been defined and one can register to listen to such a hook with the following API on the Crud object (See [Creating A Simple CRUD Module](#creating-a-simple-crud-module)):
+```
+/**
+  Registration of Post-Hook method
+  @param operation - {String} one of the followings:
+                      -. list
+                      -. create
+                      -. read
+                      -. update
+                      -. delete
+  @param callback - {Function} in the form of callback(context, next)
+                      context - {Context} object
+                      next - {Function} async next method - must be called to complete the operation
+*/
+crud.post(operation, callback);
+```
+
+The Context object is overloaded with relevant details for each operation,
+Here is the list of available methods for Context objects per opeartion:
+- All Operations:
+  ```
+  /**
+    Getter for the output object
+    @returns {Output}
+  */
+  context.getOutput();
+  
+  /**
+    Setter for a new Output object
+  */
+  context.setOutput(newDetails);
+  ```
+  
+  For you to get the relevant error / result - use the getResult(), getError() getters which their documentation is found under [Output Object](#output-object)
+  
+For the API call:
+```
+  var result = context.getOutput().getResult();
+```
+here is a relevant result for each operation that been done
+- List Operation:
+  result - {Array} of instances
+
+- Create / Read / Update / Delete Operation
+  result - {Instance} single scheme instance
+  
+For an example of a post hook after a read operation:
+```
+  // Register for post read hook
+  crud.post('read', function(context, next){
+      console.log('Post Read');
+      
+      next();
+  });
+```
+  
 ###Model Dependecies
+This feature should be available soon.
 
 
-##Options Object
+##Additional Information
+###Options Object
+###Output Object
