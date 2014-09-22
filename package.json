@@ -1,7 +1,7 @@
 {
   "name": "express-generic-crud",
   "version": "1.0.0b",
-  "author": "",
+  "author": "Yarin Podoler",
   "description": "Express CRUD operation for mongoDB scheme",
   "main": "./lib/index.js",
   "scripts": {
