@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Express-crud : Express CRUD Generic Module">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Express-crud</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/podoler/express-crud">View on GitHub</a>
+
+          <h1 id="project_title">Express-crud</h1>
+          <h2 id="project_tagline">Express CRUD Generic Module</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/podoler/express-crud/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/podoler/express-crud/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="express-crud" class="anchor" href="#express-crud"><span class="octicon octicon-link"></span></a>Express-CRUD</h1>
+
+<h1></h1>
+
+<h2>
+<a name="table-of-content" class="anchor" href="#table-of-content"><span class="octicon octicon-link"></span></a>Table Of Content</h2>
+
+<ul>
+<li>
+<a href="#general">General</a>
+
+<ul>
+<li><a href="#requirements">Requirements</a></li>
+</ul>
+</li>
+<li><a href="#installation">Installation</a></li>
+<li>
+<a href="#configuration">Configuration</a>
+
+<ul>
+<li><a href="#importing-the-module">Importing The Module</a></li>
+<li><a href="#initialization">Initialization</a></li>
+</ul>
+</li>
+<li>
+<a href="#usage">Usage</a>
+
+<ul>
+<li><a href="#creating-a-simple-crud-module">Creating a Simple CRUD Module</a></li>
+<li><a href="#creating-a-simple-static-module">Creating a Simple Static Module</a></li>
+<li>
+<a href="#using-hooks">Using Hooks</a>
+
+<ul>
+<li><a href="#pre-hooks">Pre Hooks</a></li>
+<li><a href="#post-hooks">Post Hooks</a></li>
+</ul>
+</li>
+<li><a href="#model-dependecies">Model Dependecies</a></li>
+</ul>
+</li>
+<li>
+<a href="#additional-information">Additional Information</a>
+
+<ul>
+<li><a href="#options-object">Options Object</a></li>
+<li><a href="#output-object">Output Object</a></li>
+</ul>
+</li>
+</ul><h2>
+<a name="general" class="anchor" href="#general"><span class="octicon octicon-link"></span></a>General</h2>
+
+<p>A simple to use, server side, generic module for adding CRUD module to your Express application.
+This module will allow you to add a simple CRUD module for a specific model / static file without you to have to worry about common modules implementations.</p>
+
+<h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>For you to be able to use this module you need the follwing things:</p>
+
+<ul>
+<li>Express Application</li>
+<li>Static File to use / Mongoose Scheme</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>To install the module use:</p>
+
+<pre><code>npm install express-generic-crud
+</code></pre>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<h3>
+<a name="importing-the-module" class="anchor" href="#importing-the-module"><span class="octicon octicon-link"></span></a>Importing The Module</h3>
+
+<p>To import the module use the following:</p>
+
+<pre><code>var expressCRUD = require('express-crud');
+</code></pre>
+
+<h3>
+<a name="initialization" class="anchor" href="#initialization"><span class="octicon octicon-link"></span></a>Initialization</h3>
+
+<p>To initialize thhe module use the <em>init</em> API
+Usage:</p>
+
+<pre><code>/**
+  @param: app - {Express Application}
+**/
+expressCRUD.init(app);
+</code></pre>
+
+<p>The Express-CRUD module will automatially add a crud method which would be described within the <a href="#usage">Usage</a> section</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="creating-a-simple-crud-module" class="anchor" href="#creating-a-simple-crud-module"><span class="octicon octicon-link"></span></a>Creating a Simple CRUD Module</h3>
+
+<p>To create a simple CRUD module you would need to have a basic mongoose scheme which it you can set with the following API on the Express Application:</p>
+
+<pre><code>/**
+  This method is added dynamically on runtime,
+  This is a helper method to create generic CRUD module
+  @param: path - {String} - path which will be routed to the application
+  @param: scheme - {Mongoose Model} - The Model which will be used to create the CRUD operations on
+  @returns: {Crud} - Crud object to manipulate
+**/
+var crud = app.crud(path, scheme);
+</code></pre>
+
+<p>After using this method, The followings routes would be provided for you</p>
+
+<ul>
+<li>/path (GET) - Get array list from the DB</li>
+<li>/path (POST) - Create new item in DB with specific details</li>
+<li>/path/:id (GET) - Get a specific item with id of :id</li>
+<li>/path/:id (PUT) - Update a specific item within the DB</li>
+<li>/path/:id (DELETE) - Delete specific item from DB</li>
+</ul><h3>
+<a name="creating-a-simple-static-module" class="anchor" href="#creating-a-simple-static-module"><span class="octicon octicon-link"></span></a>Creating a Simple Static Module</h3>
+
+<p>To create a get method to a staitc data, use the same API with the following options parameter:</p>
+
+<pre><code>/**
+  This method is added dynamically on runtime,
+  This is a helper method to create static data API
+  @param: path - {String} - path which will be routed to the application
+  @param: data - {Object} - The object you want to open API to
+  @param: options - {Object} with:
+            resourceType - {String} static for exporting static data object
+**/
+app.crud(path, data, {resourceType : 'static'});
+</code></pre>
+
+<h3>
+<a name="using-hooks" class="anchor" href="#using-hooks"><span class="octicon octicon-link"></span></a>Using Hooks</h3>
+
+<p>Hooks are a way for the developer to intervene with the internal of the CRUD generic module,
+There are two available hooks: pre-hooks and post-hooks</p>
+
+<h4>
+<a name="pre-hooks" class="anchor" href="#pre-hooks"><span class="octicon octicon-link"></span></a>Pre Hooks</h4>
+
+<p>Pre-Hooks are available for each operation that been defined and one can register to listen to such a hook with the following API on the Crud object (See <a href="#creating-a-simple-crud-module">Creating A Simple CRUD Module</a>):</p>
+
+<pre><code>/**
+  Registration of Pre-Hook method
+  @param operation - {String} one of the followings:
+                      -. list
+                      -. create
+                      -. read
+                      -. update
+                      -. delete
+  @param callback - {Function} in the form of callback(context, next)
+                      context - {Context} object
+                      next - {Function} async next method - must be called to complete the operation
+*/
+crud.pre(operation, callback);
+</code></pre>
+
+<p>The Context object is overloaded with relevant details for each operation,
+Here is the list of available methods for Context objects per opeartion:</p>
+
+<ul>
+<li>
+<p>Create / Update Operation:</p>
+
+<pre><code>/**
+  Create / Update Instance Details Getter
+  @returns {Object} - The details which with them the data would be created / updated
+*/
+context.getDetails();
+
+/**
+  Create / Updtate Instance Details Setter
+  @param newDetails - {Object} set the details which with them the new instance would be created / updated
+*/
+context.setDetails(newDetails);
+
+</code></pre>
+</li>
+</ul><p>For an example, to use a pre hook for create operation, use the following example:</p>
+
+<pre><code>  // Create a pre create hook
+  crud.pre('create', function(context, next){
+      console.log('Pre Create Hook');
+
+      next();
+  });
+</code></pre>
+
+<h4>
+<a name="post-hooks" class="anchor" href="#post-hooks"><span class="octicon octicon-link"></span></a>Post Hooks</h4>
+
+<p>Post-Hooks are available for each operation that been defined and one can register to listen to such a hook with the following API on the Crud object (See <a href="#creating-a-simple-crud-module">Creating A Simple CRUD Module</a>):</p>
+
+<pre><code>/**
+  Registration of Post-Hook method
+  @param operation - {String} one of the followings:
+                      -. list
+                      -. create
+                      -. read
+                      -. update
+                      -. delete
+  @param callback - {Function} in the form of callback(context, next)
+                      context - {Context} object
+                      next - {Function} async next method - must be called to complete the operation
+*/
+crud.post(operation, callback);
+</code></pre>
+
+<p>The Context object is overloaded with relevant details for each operation,
+Here is the list of available methods for Context objects per opeartion:</p>
+
+<ul>
+<li>
+<p>All Operations:</p>
+
+<pre><code>/**
+  Getter for the output object
+  @returns {Output}
+*/
+context.getOutput();
+
+/**
+  Setter for a new Output object
+*/
+context.setOutput(newDetails);
+</code></pre>
+
+<p>For you to get the relevant error / result - use the getResult(), getError() getters which their documentation is found under <a href="#output-object">Output Object</a></p>
+</li>
+</ul><p>For the API call:</p>
+
+<pre><code>  var result = context.getOutput().getResult();
+</code></pre>
+
+<p>here is a relevant result for each operation that been done</p>
+
+<ul>
+<li><p>List Operation:
+result - {Array} of instances</p></li>
+<li><p>Create / Read / Update / Delete Operation
+result - {Instance} single scheme instance</p></li>
+</ul><p>For an example of a post hook after a read operation:</p>
+
+<pre><code>  // Register for post read hook
+  crud.post('read', function(context, next){
+      console.log('Post Read');
+
+      next();
+  });
+</code></pre>
+
+<h3>
+<a name="model-dependecies" class="anchor" href="#model-dependecies"><span class="octicon octicon-link"></span></a>Model Dependecies</h3>
+
+<p>This feature should be available soon.</p>
+
+<h2>
+<a name="additional-information" class="anchor" href="#additional-information"><span class="octicon octicon-link"></span></a>Additional Information</h2>
+
+<h3>
+<a name="options-object" class="anchor" href="#options-object"><span class="octicon octicon-link"></span></a>Options Object</h3>
+
+<p>This is an object as a thirs parameter to the crud method, it can consist of the followings:</p>
+
+<ul>
+<li>resourceType - {String} - Set the resource of which to create the CRUD module
+
+<ul>
+<li>mongodb - use mongodb as the resource to use the CRUD for</li>
+<li>static - export static data object API</li>
+</ul>
+</li>
+<li>id - {String} - id which by it db index will be resolved upon</li>
+</ul><h3>
+<a name="output-object" class="anchor" href="#output-object"><span class="octicon octicon-link"></span></a>Output Object</h3>
+
+<pre><code>/**
+ * Error getter
+ * @returns {Error}
+ */
+function getError();
+
+/**
+ * Error setter
+ * @param {Error} - New Error
+ */
+function setError(err);
+
+/**
+ * Result getter
+ * @returns {*}
+ */
+function getResult();
+
+/**
+ * Result setter
+ * @param {Object} new Result
+ */
+function setResult(result);
+
+/**
+ * Is Error
+ * @returns {boolean}
+ */
+function isError();
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Express-crud maintained by <a href="https://github.com/podoler">podoler</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
