@@ -1,5 +1,5 @@
 {
-  "name": "express-crud",
+  "name": "express-generic-crud",
   "version": "1.0.0b",
   "author": "",
   "description": "Express CRUD operation for mongoDB scheme",
