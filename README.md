@@ -203,4 +203,40 @@ This feature should be available soon.
 
 ##Additional Information
 ###Options Object
+  - resourceType - {String} - Set the resource of which to create the CRUD module
+    - mongodb - use mongodb as the resource to use the CRUD for
+    - static - export static data object API
+  - id - {String} - id which by it db index will be resolved upon
+
 ###Output Object
+```
+/**
+ * Error getter
+ * @returns {Error}
+ */
+function getError();
+
+/**
+ * Error setter
+ * @param {Error} - New Error
+ */
+function setError(err);
+
+/**
+ * Result getter
+ * @returns {*}
+ */
+function getResult();
+
+/**
+ * Result setter
+ * @param {Object} new Result
+ */
+function setResult(result);
+
+/**
+ * Is Error
+ * @returns {boolean}
+ */
+function isError();
+```
