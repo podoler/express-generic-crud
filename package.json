@@ -1,21 +1,21 @@
 {
   "name": "express-generic-crud",
-  "version": "1.0.0b",
+  "version": "1.0.3b",
   "author": "Yarin Podoler",
-  "description": "Express CRUD operation for mongoDB scheme",
+  "description": "Express CRUD operation for DB (mongoDB) and static data",
   "main": "./lib/index.js",
   "scripts": {
     "test": "jasmine-node --verbose test/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/podoler/express-crud.git"
+    "url": "https://github.com/podoler/express-generic-crud.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/podoler/express-crud/issues"
+    "url": "https://github.com/podoler/express-generic-crud/issues"
   },
-  "homepage": "https://github.com/podoler/express-crud",
+  "homepage": "https://github.com/podoler/express-generic-crud",
   "dependencies": {
     "jasmine-node": "^1.14.5",
     "lodash": "^2.4.1",

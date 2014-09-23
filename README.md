@@ -17,6 +17,7 @@
   - [Model Dependecies](#model-dependecies)
 - [Additional Information](#additional-information)
   - [Options Object](#options-object)
+  - [Route Options Object](#route-options-object)
   - [Output Object](#output-object)
 
 ##General
@@ -38,7 +39,7 @@ npm install express-generic-crud
 ###Importing The Module
 To import the module use the following:
 ```
-var expressCRUD = require('express-crud');
+var expressCRUD = require('express-generic-crud');
 ```
 
 
@@ -203,11 +204,21 @@ This feature should be available soon.
 
 ##Additional Information
 ###Options Object
-This is an object as a thirs parameter to the crud method, it can consist of the followings:
+This is an object as a third parameter to the crud method, it can consist of the followings:
   - resourceType - {String} - Set the resource of which to create the CRUD module
     - mongodb - use mongodb as the resource to use the CRUD for
     - static - export static data object API
   - id - {String} - id which by it db index will be resolved upon
+  - route - {Object} which holds each route options by Name
+    - list - {RouteObject} see [Route Options Object](#route-options-object) for more info
+    - create - {RouteObject} see [Route Options Object](#route-options-object) for more info
+    - read - {RouteObject} see [Route Options Object](#route-options-object) for more info
+    - update - {RouteObject} see [Route Options Object](#route-options-object) for more info
+    - delete - {RouteObject} see [Route Options Object](#route-options-object) for more info
+
+###Route Options Object
+This is a section for each specific route within the followings and each object can have the following fields:
+  - enable - {Boolean} - is the specific route enabled
 
 ###Output Object
 ```
