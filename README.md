@@ -38,7 +38,7 @@ npm install express-generic-crud
 ###Importing The Module
 To import the module use the following:
 ```
-var expressCRUD = require('express-crud');
+var expressCRUD = require('express-generic-crud');
 ```
 
 
