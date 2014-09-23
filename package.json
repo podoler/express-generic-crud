@@ -2,7 +2,7 @@
   "name": "express-generic-crud",
   "version": "1.0.1b",
   "author": "Yarin Podoler",
-  "description": "Express CRUD operation for mongoDB scheme",
+  "description": "Express CRUD operation for DB (mongoDB) and static data",
   "main": "./lib/index.js",
   "scripts": {
     "test": "jasmine-node --verbose test/"
